@@ -1,25 +1,87 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="PeticionOpenLibrary" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="UIControl">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Consulta a OpenLibrary" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4O-SR-00y">
+                                <rect key="frame" x="0.0" y="38" width="600" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="G7H-YX-OKx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ISBN:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y2A-Fr-Juv">
+                                <rect key="frame" x="0.0" y="87" width="59" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="59" id="PxH-eL-1Du"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="SVs-zN-jj3">
+                                <rect key="frame" x="67" y="83" width="446" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="446" id="uRg-iB-fGg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="search"/>
+                                <connections>
+                                    <action selector="textFieldDoneEditing:" destination="BYZ-38-t0r" eventType="editingDidEndOnExit" id="Q84-KC-AEC"/>
+                                </connections>
+                            </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="PHL-KH-mr0">
+                                <rect key="frame" x="0.0" y="138" width="600" height="413"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.76078431369999999" green="0.73725490199999999" blue="0.63921568630000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.76078431372549016" green="0.73725490196078436" blue="0.63921568627450975" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="SVs-zN-jj3" firstAttribute="leading" secondItem="y2A-Fr-Juv" secondAttribute="trailing" constant="8" symbolic="YES" id="06a-Pi-dr7"/>
+                            <constraint firstItem="y2A-Fr-Juv" firstAttribute="leading" secondItem="PHL-KH-mr0" secondAttribute="leading" id="855-J9-UEP"/>
+                            <constraint firstItem="PHL-KH-mr0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Gon-Ga-Khh"/>
+                            <constraint firstItem="y4O-SR-00y" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="OHt-N5-mAx"/>
+                            <constraint firstItem="SVs-zN-jj3" firstAttribute="trailing" secondItem="PHL-KH-mr0" secondAttribute="trailing" constant="-87" id="RBQ-DN-yrZ"/>
+                            <constraint firstItem="y4O-SR-00y" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="18" id="Zxo-Ns-msM"/>
+                            <constraint firstItem="SVs-zN-jj3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-10" id="eig-Kv-6aD"/>
+                            <constraint firstItem="y4O-SR-00y" firstAttribute="leading" secondItem="y2A-Fr-Juv" secondAttribute="leading" id="kcF-Xh-ncJ"/>
+                            <constraint firstItem="y4O-SR-00y" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="n1O-zH-lPs"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="PHL-KH-mr0" secondAttribute="bottom" constant="49" id="tx5-cX-t5E"/>
+                            <constraint firstItem="y2A-Fr-Juv" firstAttribute="centerY" secondItem="SVs-zN-jj3" secondAttribute="centerY" id="vLa-Ru-U9V"/>
+                            <constraint firstItem="PHL-KH-mr0" firstAttribute="top" secondItem="SVs-zN-jj3" secondAttribute="bottom" constant="25" id="veN-vA-0St"/>
+                            <constraint firstItem="SVs-zN-jj3" firstAttribute="top" secondItem="y4O-SR-00y" secondAttribute="bottom" constant="14" id="wVg-X8-ycl"/>
+                        </constraints>
+                        <connections>
+                            <action selector="backgroundTap:" destination="BYZ-38-t0r" eventType="touchDown" id="732-d4-XJ6"/>
+                        </connections>
                     </view>
+                    <connections>
+                        <outlet property="txtISBN" destination="SVs-zN-jj3" id="UfG-dn-G4d"/>
+                        <outlet property="txtvResultado" destination="PHL-KH-mr0" id="vGc-dj-orf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="246" y="386"/>
         </scene>
     </scenes>
 </document>
