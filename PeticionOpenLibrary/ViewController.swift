@@ -33,69 +33,65 @@ class ViewController: UIViewController, UITextFieldDelegate {
             if let httpResponse = resp as? NSHTTPURLResponse {
                 print (httpResponse.statusCode)
                 let texto = NSString(data: datos!, encoding: NSUTF8StringEncoding)
-          
-                //************************************************************inicio
-                
-                //------------FUNCIONES DE JSON----------------
-                
-                let datos = NSData(contentsOfURL: url!)
-                do{
-                    let json = try NSJSONSerialization.JSONObjectWithData(datos!, options:NSJSONReadingOptions.MutableLeaves)
-                    let dico1 = json as! NSDictionary
-                    let root = dico1["ISBN:\(isbn!)"] as! NSDictionary
-                    let title = root["title"] as! NSString as String
-                    dispatch_async(dispatch_get_main_queue()) {
-                        self.txtTitulo.text = title
-                    }
-                    //self.imgPortada.image = UIImage(named: "sinImagen.png")
-    
-                    
-                     if (root["cover"] != nil){
-                     let cover = root["cover"] as! NSDictionary
-                     let medium = cover["medium"] as! NSString as String
-                     //self.imgPortada.image.URL
-                     if let url = NSURL(string: medium) {
-                     if let data = NSData(contentsOfURL: url) {
-                        dispatch_async(dispatch_get_main_queue()) {self.imgPortada.image = UIImage(data: data)}
-                     }
-                     } else {
-                        dispatch_async(dispatch_get_main_queue()) {self.imgPortada.image = UIImage(named: "sinImagen.png")}
-                     }
-                     }
-                     else{
-                        dispatch_async(dispatch_get_main_queue()) {self.imgPortada.image = UIImage(named: "sinImagen.png")}
-                     }
-                     
-                     
-                     let authors = root["authors"] as! NSArray
-                    
-                     var autoresCad: String = ""
-                    
-                     for i in 0...authors.count-1{
-                        autoresCad += ("\(authors[i]["name"] as! NSString as String)\n")
-
-                         print(authors[i]["name"])
-                     }
-                    dispatch_async(dispatch_get_main_queue()) {self.txtAutor.text = autoresCad}
-                    
-                } catch _ {
-                    
-                }
-                //*******************************************fin
-
-               
-                
-                
-                
-                
                 
                 if (String(texto!) != "{}") {
                     dispatch_async(dispatch_get_main_queue()) {
-                       // self.txtvResultado.text = String(texto!)
+                        //************************************************************inicio
+                        
+                        //------------FUNCIONES DE JSON----------------
+                        
+                        let datos = NSData(contentsOfURL: url!)
+                        do{
+                            let json = try NSJSONSerialization.JSONObjectWithData(datos!, options:NSJSONReadingOptions.MutableLeaves)
+                            let dico1 = json as! NSDictionary
+                            let root = dico1["ISBN:\(isbn!)"] as! NSDictionary
+                            let title = root["title"] as! NSString as String
+                            dispatch_async(dispatch_get_main_queue()) {
+                                self.txtTitulo.text = title
+                            }
+                            //self.imgPortada.image = UIImage(named: "sinImagen.png")
+                            
+                            
+                            if (root["cover"] != nil){
+                                let cover = root["cover"] as! NSDictionary
+                                let medium = cover["medium"] as! NSString as String
+                                //self.imgPortada.image.URL
+                                if let url = NSURL(string: medium) {
+                                    if let data = NSData(contentsOfURL: url) {
+                                        dispatch_async(dispatch_get_main_queue()) {self.imgPortada.image = UIImage(data: data)}
+                                    }
+                                } else {
+                                    dispatch_async(dispatch_get_main_queue()) {self.imgPortada.image = UIImage(named: "sinImagen.png")}
+                                }
+                            }
+                            else{
+                                dispatch_async(dispatch_get_main_queue()) {self.imgPortada.image = UIImage(named: "sinImagen.png")}
+                            }
+                            
+                            
+                            let authors = root["authors"] as! NSArray
+                            
+                            var autoresCad: String = ""
+                            
+                            for i in 0...authors.count-1{
+                                autoresCad += ("\(authors[i]["name"] as! NSString as String)\n")
+                                
+                                print(authors[i]["name"])
+                            }
+                            dispatch_async(dispatch_get_main_queue()) {self.txtAutor.text = autoresCad}
+                            
+                        } catch _ {
+                            
+                        }
+                        //*******************************************fin
                     }
                 }
                 else {
-                    dispatch_async(dispatch_get_main_queue()) { //self.txtvResultado.text = "No se encontraron datos con el ISBN especificado."
+                    dispatch_async(dispatch_get_main_queue()) {
+                        let alert = UIAlertController(title: "Error", message:
+                            "No se encontró ISBN especificado.", preferredStyle: UIAlertControllerStyle.Alert)
+                        alert.addAction(UIAlertAction(title: "Aceptar", style: UIAlertActionStyle.Default,handler: nil))
+                        self.presentViewController(alert, animated: true, completion: nil)
                     }
                 }
             }
