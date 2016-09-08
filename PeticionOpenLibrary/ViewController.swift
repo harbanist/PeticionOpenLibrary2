@@ -10,9 +10,14 @@ import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate {
 
+    @IBOutlet weak var txtTitulo: UILabel!
+    @IBOutlet weak var txtAutor: UILabel!
     @IBOutlet weak var txtISBN: UITextField!
-    @IBOutlet weak var txtvResultado: UITextView!
+    @IBOutlet weak var imgPortada: UIImageView!
+    //@IBOutlet weak var txtvResultado: UITextView!
     
+    @IBOutlet weak var txtTit: UILabel!
+    var jsonTxt: String = ""
     
     //----------manejo de campo de texto----------
     func textFieldDidEndEditing(textField: UITextField) {
@@ -28,13 +33,70 @@ class ViewController: UIViewController, UITextFieldDelegate {
             if let httpResponse = resp as? NSHTTPURLResponse {
                 print (httpResponse.statusCode)
                 let texto = NSString(data: datos!, encoding: NSUTF8StringEncoding)
+          
+                //************************************************************inicio
+                
+                //------------FUNCIONES DE JSON----------------
+                
+                let datos = NSData(contentsOfURL: url!)
+                do{
+                    let json = try NSJSONSerialization.JSONObjectWithData(datos!, options:NSJSONReadingOptions.MutableLeaves)
+                    let dico1 = json as! NSDictionary
+                    let root = dico1["ISBN:\(isbn!)"] as! NSDictionary
+                    let title = root["title"] as! NSString as String
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.txtTitulo.text = title
+                    }
+                    //self.imgPortada.image = UIImage(named: "sinImagen.png")
+    
+                    
+                     if (root["cover"] != nil){
+                     let cover = root["cover"] as! NSDictionary
+                     let medium = cover["medium"] as! NSString as String
+                     //self.imgPortada.image.URL
+                     if let url = NSURL(string: medium) {
+                     if let data = NSData(contentsOfURL: url) {
+                        dispatch_async(dispatch_get_main_queue()) {self.imgPortada.image = UIImage(data: data)}
+                     }
+                     } else {
+                        dispatch_async(dispatch_get_main_queue()) {self.imgPortada.image = UIImage(named: "sinImagen.png")}
+                     }
+                     }
+                     else{
+                        dispatch_async(dispatch_get_main_queue()) {self.imgPortada.image = UIImage(named: "sinImagen.png")}
+                     }
+                     
+                     
+                     let authors = root["authors"] as! NSArray
+                    
+                     var autoresCad: String = ""
+                    
+                     for i in 0...authors.count-1{
+                        autoresCad += ("\(authors[i]["name"] as! NSString as String)\n")
+
+                         print(authors[i]["name"])
+                     }
+                    dispatch_async(dispatch_get_main_queue()) {self.txtAutor.text = autoresCad}
+                    
+                } catch _ {
+                    
+                }
+                //*******************************************fin
+
+               
+                
+                
+                
+                
+                
                 if (String(texto!) != "{}") {
                     dispatch_async(dispatch_get_main_queue()) {
-                        self.txtvResultado.text = String(texto!)
+                       // self.txtvResultado.text = String(texto!)
                     }
                 }
                 else {
-                    dispatch_async(dispatch_get_main_queue()) { self.txtvResultado.text = "No se encontraron datos con el ISBN especificado."}
+                    dispatch_async(dispatch_get_main_queue()) { //self.txtvResultado.text = "No se encontraron datos con el ISBN especificado."
+                    }
                 }
             }
             else {
